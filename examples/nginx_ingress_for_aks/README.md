@@ -23,7 +23,7 @@ data "azurerm_kubernetes_cluster" "credentials" {
 
 module "aks-ingress" {
   source  = "spy86/aks-nginx-ingress-controller/azure"
-  version = "1.0.1"
+  version = "1.0.2"
   resource_group_name = "dev-k8s-test-weu-rg"
   cluster_name = "examplecakscluster"
   az_public_ip_allocation_method = "Static"
@@ -38,14 +38,6 @@ module "aks-ingress" {
   nginx_ingress_controller_node_selector = "linux"
   nginx_ingress_defaultBackend_node_selector = "linux"
   nginx_ingress_controller_service_annotations = "webbackend001"
-
-  default_tags = {
-      Administrator = "Someone"
-      Department = "IT"
-      CostCentre = "ABC123"
-      ContactPerson = "Someone@example.com"
-      ManagedByTerraform = "True"
-}
 
 }
 ```

@@ -2,7 +2,7 @@ data "azurerm_public_ip" "main" {
   name                = "${var.environment}-${var.cluster_name}-${var.region}-aks-pip01"
   resource_group_name = "MC_${data.azurerm_resource_group.rg.name}_${var.environment}-${var.cluster_name}-${var.region}-aks_westeurope"
 
-depends_on = [ "azurerm_public_ip.main"] 
+depends_on = [ azurerm_public_ip.main ] 
 }
 
 resource "helm_release" "nginx_ingress" {
@@ -34,5 +34,11 @@ resource "helm_release" "nginx_ingress" {
     value = "${var.nginx_ingress_controller_service_annotations}"
   }
 
-depends_on = [ "azurerm_public_ip.main" ] 
+depends_on = [ azurerm_public_ip.main ]
+
+  lifecycle {
+    ignore_changes = [
+      set,
+    ]
+  }
 }
